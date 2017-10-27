@@ -1,5 +1,7 @@
 # ToDoList
 
+This is personal project intended to learn some new technologies.
+
 This project was initialized with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.9.
 
 ## Development server

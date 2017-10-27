@@ -1,6 +1,7 @@
 {
   "name": "to-do-list",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": "Aivars Liepa",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -9,6 +10,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aiciz/to-do-list.git"
   },
   "private": true,
   "dependencies": {
