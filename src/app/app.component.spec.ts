@@ -1,15 +1,18 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { ToDoListComponent } from './components/to-do-list/to-do-list.component';
 
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                AppComponent
+                AppComponent,
+                WelcomeComponent,
+                ToDoListComponent
             ],
             imports: [
-                AngularFirestoreModule
             ]
         }).compileComponents();
     }));

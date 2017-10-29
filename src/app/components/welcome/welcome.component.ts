@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
+
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
