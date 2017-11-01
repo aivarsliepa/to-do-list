@@ -11,8 +11,6 @@ describe('AppComponent', () => {
                 AppComponent,
                 WelcomeComponent,
                 ToDoListComponent
-            ],
-            imports: [
             ]
         }).compileComponents();
     }));
