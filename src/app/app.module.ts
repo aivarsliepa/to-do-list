@@ -18,9 +18,9 @@ import { ToDoListComponent } from './components/to-do-list/to-do-list.component'
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireModule.initializeApp(environment.firebase)
+    // AngularFirestoreModule,
+    // AngularFireAuthModule
   ],
   providers: [
   ],

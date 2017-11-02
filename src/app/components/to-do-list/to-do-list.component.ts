@@ -10,10 +10,12 @@ import { Observable } from 'rxjs/Observable';
 export class ToDoListComponent implements OnInit {
   items: Observable<any[]>;
 
-  constructor(private db: AngularFirestore) { }
+  constructor(
+   // private db: AngularFirestore
+  ) { }
 
   ngOnInit() {
-    this.items = this.db.collection('users').valueChanges();
+    // this.items = this.db.collection('users').valueChanges();
   }
 
 }
