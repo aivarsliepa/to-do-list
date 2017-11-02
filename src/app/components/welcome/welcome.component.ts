@@ -10,15 +10,17 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth) { }
+  constructor(
+    // public afAuth: AngularFireAuth
+  ) { }
 
   ngOnInit() {
   }
 
   login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    // this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
   logout() {
-    this.afAuth.auth.signOut();
+    // this.afAuth.auth.signOut();
   }
 }
