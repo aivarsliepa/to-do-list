@@ -19,4 +19,7 @@ describe('AppComponent', () => {
         const app = fixture.debugElement.componentInstance;
         expect(app).toBeTruthy();
     }));
+    it('should fail travis build', () => {
+        expect(1).toBe(2);
+    });
 });
