@@ -1,7 +1,7 @@
 # ToDoList
 
-[![Build Status](https://travis-ci.org/aiciz/to-do-list.svg?branch=master)](https://travis-ci.org/aiciz/to-do-list)
-[![Greenkeeper badge](https://badges.greenkeeper.io/aiciz/to-do-list.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/aivarsliepa/to-do-list.svg?branch=master)](https://travis-ci.org/aivarsliepa/to-do-list)
+[![Greenkeeper badge](https://badges.greenkeeper.io/aivarsliepa/to-do-list.svg)](https://greenkeeper.io/)
 
 
 
