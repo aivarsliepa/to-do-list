@@ -15,3 +15,4 @@ before_script:
 script:
   - ng build
   - ng e2e
+  - npm test
