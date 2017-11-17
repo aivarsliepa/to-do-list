@@ -15,7 +15,4 @@ describe('AppComponent', () => {
         const app = fixture.debugElement.componentInstance;
         expect(app).toBeTruthy();
     }));
-    it('should fail', () => {
-        expect(1).toBe(2);
-    });
 });
