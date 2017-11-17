@@ -1,28 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
 
 import { environment } from '../environments/environment';
 
+import { CoreModule } from './modules/core/core.module';
+
 import { AppComponent } from './app.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
-import { ToDoListComponent } from './components/to-do-list/to-do-list.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    WelcomeComponent,
-    ToDoListComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase)
-    // AngularFirestoreModule,
-    // AngularFireAuthModule
+    AngularFireModule.initializeApp(environment.firebase),
+    CoreModule
   ],
   providers: [
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
