@@ -11,11 +11,13 @@ import { ListItem } from '../../interfaces/main';
 })
 export class ListComponent implements OnInit {
 
-  list: ListItem[] = [];
+  list: ListItem[];
   constructor(private listService: ListService) { }
 
   ngOnInit() {
-    this.listService.getList().subscribe(list => this.list = list);
+    this.listService.getList().subscribe(list => {
+      this.list = list;
+    });
   }
 
 }

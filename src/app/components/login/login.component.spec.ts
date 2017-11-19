@@ -2,11 +2,17 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { AuthService } from '../../services/auth.service';
+import { Observable } from 'rxjs/Observable';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  const loginMock: any = {};
+
+  const loginMock: any = {
+    getUser: () => Observable.of(null),
+    logout: () => { },
+    googleLogin: () => { }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

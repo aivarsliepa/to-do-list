@@ -4,7 +4,7 @@ export interface User {
 }
 
 export interface ListItem {
-    uid: string;
+    uid?: string;
     title: string;
     dueDate: Date;
     isDone: boolean;

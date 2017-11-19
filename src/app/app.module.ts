@@ -11,12 +11,14 @@ import { AppComponent } from './app.component';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './components/login/login.component';
 import { ListComponent } from './components/list/list.component';
+import { ItemFormComponent } from './components/item-form/item-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ListComponent
+    ListComponent,
+    ItemFormComponent
   ],
   imports: [
     BrowserModule,

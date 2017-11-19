@@ -7,26 +7,31 @@ import { User } from '../interfaces/main';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class AuthService {
 
-  public user: Observable<User> = Observable.of(null);
+  private user = new BehaviorSubject<User>(null);
 
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
-    this.user = this.afAuth.authState.switchMap((user: firebase.User) => {
+  constructor(private afAuth: AngularFireAuth) {
+    this.afAuth.authState.subscribe((user: firebase.User) => {
       if (user) {
-        return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        this.user.next({ uid: user.uid, displayName: user.displayName });
       } else {
-        return Observable.of(null);
+        this.user.next(null);
       }
     });
+  }
+
+  getUser(): BehaviorSubject<User> {
+    return this.user;
   }
 
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider).then((credential: firebase.auth.UserCredential) => {
-      this.initializeUser(credential.user);
+      // this.initializeUser(credential.user);
     });
   }
 
@@ -34,12 +39,12 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
-  private initializeUser(user: firebase.User) {
-    const userDoc: AngularFirestoreDocument<User> = this.afs.doc<User>(`users/${user.uid}`);
-    const userData: User = {
-      uid: user.uid,
-      displayName: user.displayName
-    };
-    userDoc.set(userData);
-  }
+  // private initializeUser(user: firebase.User) {
+  //   const userDoc: AngularFirestoreDocument<User> = this.afs.doc<User>(`users/${user.uid}`);
+  //   const userData: User = {
+  //     uid: user.uid,
+  //     displayName: user.displayName
+  //   };
+  //   userDoc.set(userData);
+  // }
 }

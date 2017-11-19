@@ -3,11 +3,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { ListComponent } from './components/list/list.component';
 import { AuthService } from './services/auth.service';
+import { FormsModule } from '@angular/forms';
 
 
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [FormsModule],
             declarations: [
                 AppComponent,
                 LoginComponent,

@@ -1,6 +1,8 @@
 <h1>Welcome to app!</h1>
 <app-login></app-login>
 
-<div *ngIf="authService.user | async">
+<div *ngIf="auth.user | async">
+    <!-- <app-item-form></app-item-form> -->
     <app-list></app-list>
 </div>
+

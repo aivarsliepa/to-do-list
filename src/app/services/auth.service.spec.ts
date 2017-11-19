@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../interfaces/main';
 
 
-describe('AuthService', () => {
+describe('AuthService, while user is logged in', () => {
 
   const USER_UID = '1234';
   const mockUser: User = {
@@ -14,62 +14,47 @@ describe('AuthService', () => {
     displayName: 'john doe'
   };
 
-  const mockDocFunction = function (path: string) {
-    if (path === `users/${USER_UID}`) {
-      return {
-        valueChanges: function () {
-          return Observable.of(mockUser);
-        }
-      };
-    } else {
-      return null;
-    }
-  };
-
-  const mockAFs: any = { doc: mockDocFunction };
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         AuthService,
-        { provide: AngularFireAuth, useValue: { authState: Observable.of(mockUser) } },
-        { provide: AngularFirestore, useValue: mockAFs }
+        { provide: AngularFireAuth, useValue: { authState: Observable.of(mockUser) } }
       ]
     });
   });
 
-  it('should be created with logged in', inject([AuthService], (service: AuthService) => {
+  it('should be created', inject([AuthService], (service: AuthService) => {
     expect(service).toBeTruthy();
   }));
 
   it('should set correct user', inject([AuthService], (service: AuthService) => {
     let result: User;
-    service.user.subscribe(user => {
+    service.getUser().subscribe(user => {
       result = user;
     }).unsubscribe();
-    expect(result).toBe(mockUser);
+    expect(result.displayName).toBe(mockUser.displayName);
+    expect(result.uid).toBe(mockUser.uid);
   }));
 });
 
-describe('AuthService', () => {
+describe('AuthService, while logged out', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         AuthService,
-        { provide: AngularFireAuth, useValue: { authState: Observable.of(null) } },
-        { provide: AngularFirestore, useValue: {} }
+        { provide: AngularFireAuth, useValue: { authState: Observable.of(null) } }
       ]
     });
   });
 
-  it('should be created with not logged in', inject([AuthService], (service: AuthService) => {
+  it('should be created', inject([AuthService], (service: AuthService) => {
     expect(service).toBeTruthy();
   }));
 
-  it('set user as null, when not loggin in', inject([AuthService], (service: AuthService) => {
+  it('set user as null', inject([AuthService], (service: AuthService) => {
     let result = {};
-    service.user.subscribe(user => {
+    service.getUser().subscribe(user => {
       result = user;
     }).unsubscribe();
     expect(result).toBeNull();
