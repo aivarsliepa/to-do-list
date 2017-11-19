@@ -1,14 +1,11 @@
 import { AppPage } from './app.po';
 
 describe('to-do-list App', () => {
-  let page: AppPage;
 
   beforeEach(() => {
-    page = new AppPage();
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+  it('this is just a stub, currently no e2e tests', () => {
+    expect(true).toBeTruthy();
   });
 });
