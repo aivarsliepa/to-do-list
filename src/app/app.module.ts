@@ -9,10 +9,14 @@ import { CoreModule } from './modules/core/core.module';
 
 import { AppComponent } from './app.component';
 import { AuthService } from './services/auth.service';
+import { LoginComponent } from './components/login/login.component';
+import { ListComponent } from './components/list/list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,

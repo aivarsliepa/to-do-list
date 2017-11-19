@@ -14,8 +14,32 @@ export class AuthService {
   public user: Observable<User>;
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
-    this.user = afAuth.authState;
-    console.log(this.user);
+    this.user = this.afAuth.authState.switchMap((user: firebase.User) => {
+      if (user) {
+        return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+      } else {
+        return Observable.of(null);
+      }
+    });
   }
 
+  googleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.afAuth.auth.signInWithPopup(provider).then((credential: firebase.auth.UserCredential) => {
+      this.initializeUser(credential.user);
+    });
+  }
+
+  logout() {
+    this.afAuth.auth.signOut();
+  }
+
+  private initializeUser(user: firebase.User) {
+    const userDoc: AngularFirestoreDocument<User> = this.afs.doc<User>(`users/${user.uid}`);
+    const userData: User = {
+      uid: user.uid,
+      displayName: user.displayName
+    };
+    userDoc.set(userData);
+  }
 }
