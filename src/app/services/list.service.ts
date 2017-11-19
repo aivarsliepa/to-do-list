@@ -7,7 +7,7 @@ import { ListItem } from '../interfaces/main';
 @Injectable()
 export class ListService {
 
-  list: Observable<ListItem[]>;
+  list: Observable<ListItem[]> = Observable.of(null);
 
   constructor(private auth: AuthService, private afs: AngularFirestore) { }
 

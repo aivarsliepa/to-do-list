@@ -11,7 +11,7 @@ import 'rxjs/add/operator/switchMap';
 @Injectable()
 export class AuthService {
 
-  public user: Observable<User>;
+  public user: Observable<User> = Observable.of(null);
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user = this.afAuth.authState.switchMap((user: firebase.User) => {
