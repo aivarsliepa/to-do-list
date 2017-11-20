@@ -1,7 +1,11 @@
 import { User, ListItem } from '../interfaces/main';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-export const USER_UID = '1234';
+export const USER_UID = 'user-uid';
 export const USER_NAME = 'john doe';
+export const LIST_1_UID = 'list-item1-uid';
+export const LIST_1_TITLE = 'list one';
+export const LIST_2_UID = 'list-item2-uid';
+export const LIST_2_TITLE = 'list two';
 
 export const mockUser: User = {
     uid: USER_UID,
@@ -13,4 +17,91 @@ export const authServiceMock = {
     getUser: () => getUserSubject,
     logout: () => { getUserSubject.next(null); },
     googleLogin: () => { getUserSubject.next(mockUser); }
+};
+
+export const authStateSubject = new BehaviorSubject(null);
+export const mockNgFireAuth = {
+    authState: authStateSubject
+};
+
+export const mockListItem1: ListItem = {
+    date: null,
+    done: false,
+    title: LIST_1_TITLE,
+    uid: LIST_1_UID
+};
+
+export const mockListItem2: ListItem = {
+    date: null,
+    done: false,
+    title: LIST_2_TITLE,
+    uid: LIST_2_UID
+};
+
+export const mockListItem1Doc = {
+    delete: () => { },
+    update: (item) => { }
+};
+
+export const mockDocChangeAction1 = {
+    payload: {
+        doc: {
+            data: () => {
+                return {
+                    date: null,
+                    done: false,
+                    title: 'list one'
+                };
+            },
+            id: LIST_1_UID
+        }
+    }
+};
+
+export const mockDocChangeAction2 = {
+    payload: {
+        doc: {
+            data: () => {
+                return {
+                    date: null,
+                    done: true,
+                    title: 'list two'
+                };
+            },
+            id: LIST_2_UID
+        }
+    }
+};
+
+export const mockDocumentChangeActions = [];
+
+// mockDucumentChangeActions
+export const mockListSubject = new BehaviorSubject(mockDocumentChangeActions);
+
+export const mockListCollection = {
+    snapshotChanges: () => {
+        return mockListSubject;
+    },
+    doc: (id: String) => {
+        if (id === LIST_1_UID) {
+            return mockListItem1Doc;
+        }
+    },
+    add: (list: ListItem) => { }
+};
+
+export const mockUserDoc = {
+    collection: (colPath: string) => {
+        if (colPath === 'list') {
+            return mockListCollection;
+        }
+    }
+};
+
+export const mockFireStore = {
+    doc: (docPath: string) => {
+        if (docPath === `users/${USER_UID}`) {
+            return mockUserDoc;
+        }
+    }
 };

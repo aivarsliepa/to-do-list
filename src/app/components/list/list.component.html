@@ -1,5 +1,5 @@
-<div *ngIf="list; else noItems">
-  <h3>Your list wut</h3>
+<div *ngIf="list">
+  <h3>There is a lot to do, you better get started!</h3>
   <ul>
     <li *ngFor="let item of list">
       You have to complete: {{item.title}} <br>
@@ -7,7 +7,3 @@
     </li>
   </ul>
 </div>
-
-<ng-template #noItems>
-  <h3>You have no items on the list</h3>
-</ng-template>

@@ -10,6 +10,7 @@ export class ListService {
 
   private list = new BehaviorSubject<ListItem[]>(null);
   private listCollection: AngularFirestoreCollection<ListItem>;
+
   constructor(private auth: AuthService, private afs: AngularFirestore) {
     this.auth.getUser().subscribe(user => {
       if (user) {
@@ -40,4 +41,7 @@ export class ListService {
     this.listCollection.doc(item.uid).delete();
   }
 
+  updateItem(item: ListItem) {
+    this.listCollection.doc(item.uid).update(item);
+  }
 }
