@@ -28,14 +28,12 @@ export class AuthService {
     return this.user;
   }
 
-  googleLogin() {
+  googleLogin(): void {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return this.afAuth.auth.signInWithPopup(provider).then((credential: firebase.auth.UserCredential) => {
-      // this.initializeUser(credential.user);
-    });
+    this.afAuth.auth.signInWithPopup(provider);
   }
 
-  logout() {
+  logout(): void {
     this.afAuth.auth.signOut();
   }
 

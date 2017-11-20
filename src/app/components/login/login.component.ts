@@ -17,11 +17,11 @@ export class LoginComponent implements OnInit {
     this.user = this.authService.getUser();
   }
 
-  private googleLogin() {
+  googleLogin() {
     this.authService.googleLogin();
   }
 
-  private logout() {
+  logout() {
     this.authService.logout();
   }
 }

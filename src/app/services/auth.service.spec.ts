@@ -1,24 +1,18 @@
 import { TestBed, inject, getTestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
+import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../interfaces/main';
-
+import { mockUser, USER_UID, USER_NAME } from '../testing/mocks';
 
 describe('AuthService, while user is logged in', () => {
-
-  const USER_UID = '1234';
-  const mockUser: User = {
-    uid: USER_UID,
-    displayName: 'john doe'
-  };
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         AuthService,
-        { provide: AngularFireAuth, useValue: { authState: Observable.of(mockUser) } }
+        { provide: AngularFireAuth, useValue: { authState: Observable.of(mockUser), } }
       ]
     });
   });
@@ -32,13 +26,12 @@ describe('AuthService, while user is logged in', () => {
     service.getUser().subscribe(user => {
       result = user;
     }).unsubscribe();
-    expect(result.displayName).toBe(mockUser.displayName);
-    expect(result.uid).toBe(mockUser.uid);
+    expect(result.displayName).toBe(USER_NAME);
+    expect(result.uid).toBe(USER_UID);
   }));
 });
 
 describe('AuthService, while logged out', () => {
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -59,5 +52,4 @@ describe('AuthService, while logged out', () => {
     }).unsubscribe();
     expect(result).toBeNull();
   }));
-
 });
