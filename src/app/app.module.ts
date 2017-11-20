@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 
 import { environment } from '../environments/environment';
@@ -8,7 +8,6 @@ import { environment } from '../environments/environment';
 import { CoreModule } from './modules/core/core.module';
 
 import { AppComponent } from './app.component';
-import { AuthService } from './services/auth.service';
 import { LoginComponent } from './components/login/login.component';
 import { ListComponent } from './components/list/list.component';
 import { ItemFormComponent } from './components/item-form/item-form.component';
@@ -18,15 +17,16 @@ import { ItemFormComponent } from './components/item-form/item-form.component';
     AppComponent,
     LoginComponent,
     ListComponent,
-    ItemFormComponent
+    ItemFormComponent,
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
-    CoreModule
+    CoreModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
-    AuthService
   ],
   bootstrap: [AppComponent]
 })

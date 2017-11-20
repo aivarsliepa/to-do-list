@@ -14,5 +14,5 @@ before_script:
 
 script:
   - ng build
-  - npm test
+  - karma start --browsers Firefox --single-run
   - ng e2e

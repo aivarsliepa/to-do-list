@@ -6,6 +6,6 @@ export interface User {
 export interface ListItem {
     uid?: string;
     title: string;
-    dueDate: Date;
-    isDone: boolean;
+    date: Date;
+    done: boolean;
 }

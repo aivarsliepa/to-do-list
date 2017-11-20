@@ -9,8 +9,8 @@ describe('ListComponent', () => {
 
   const listItem: ListItem = {
     uid: '1234',
-    dueDate: null,
-    isDone: true,
+    date: null,
+    done: true,
     title: 'item'
   };
   let component: ListComponent;
@@ -48,6 +48,6 @@ describe('ListComponent', () => {
     fixture.detectChanges();
     expect(component.list.length).toBe(1);
     expect(component.list[0]).toBe(listItem);
-    expect(component.list[0].isDone).toBeTruthy();
+    expect(component.list[0].done).toBeTruthy();
   });
 });

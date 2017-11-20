@@ -39,15 +39,15 @@ describe('ListService, while user is present', () => {
   };
 
   const item1: ListItem = {
-    dueDate: null,
-    isDone: false,
+    date: null,
+    done: false,
     title: 'list one',
     uid: LIST_1_UID
   };
 
   const item2: ListItem = {
-    dueDate: null,
-    isDone: true,
+    date: null,
+    done: true,
     title: 'list two',
     uid: LIST_2_UID
   };
@@ -58,8 +58,8 @@ describe('ListService, while user is present', () => {
         doc: {
           data: () => {
             return {
-              dueDate: null,
-              isDone: false,
+              date: null,
+              done: false,
               title: 'list one'
             };
           },
@@ -72,8 +72,8 @@ describe('ListService, while user is present', () => {
         doc: {
           data: () => {
             return {
-              dueDate: null,
-              isDone: true,
+              date: null,
+              done: true,
               title: 'list two'
             };
           },

@@ -3,7 +3,7 @@
   <ul>
     <li *ngFor="let item of list">
       You have to complete: {{item.title}} <br>
-      Untill: {{item.dueDate}} <br>
+      Untill: {{item.date | date:'medium'}} <br>
     </li>
   </ul>
 </div>

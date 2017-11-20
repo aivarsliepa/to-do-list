@@ -3,17 +3,21 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { ListComponent } from './components/list/list.component';
 import { AuthService } from './services/auth.service';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ItemFormComponent } from './components/item-form/item-form.component';
 
 
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule],
+            imports: [
+                ReactiveFormsModule
+            ],
             declarations: [
                 AppComponent,
                 LoginComponent,
-                ListComponent
+                ListComponent,
+                ItemFormComponent
             ],
             providers: [
                 { provide: AuthService, useValue: {} }
