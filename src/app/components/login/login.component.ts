@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { User } from 'firebase/app';
+import { User } from '../../interfaces/main';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class LoginComponent implements OnInit {
 
-  private user;
+  private user: BehaviorSubject<User>;
   constructor(private authService: AuthService) { }
 
   ngOnInit() {

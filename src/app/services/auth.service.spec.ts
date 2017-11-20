@@ -10,7 +10,7 @@ import {
   authStateSubject
 } from '../testing/mocks';
 
-describe('AuthService, while user is logged in', () => {
+describe('AuthService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [

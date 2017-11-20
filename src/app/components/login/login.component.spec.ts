@@ -1,10 +1,8 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { authServiceMock, getUserSubject, mockUser, USER_NAME } from '../../testing/mocks';
 import { LoginComponent } from './login.component';
 import { AuthService } from '../../services/auth.service';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DebugElement } from '@angular/core/src/debug/debug_node';
 
 describe('LoginComponent', () => {

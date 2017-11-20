@@ -19,7 +19,7 @@ import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
 import { ListItem } from '../interfaces/main';
 
-describe('ListService, while user is null', () => {
+describe('ListService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [

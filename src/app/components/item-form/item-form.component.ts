@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
-import { ListItem } from '../../interfaces/main';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
