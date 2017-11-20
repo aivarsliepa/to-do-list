@@ -27,7 +27,7 @@ export class ItemFormComponent implements OnInit {
       this.listService.addNewItem(
         {
           title: this.form.value.title,
-          date: this.form.value.date,
+          date: new Date(this.form.value.date),
           done: false
         }
       );

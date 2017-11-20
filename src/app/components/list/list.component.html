@@ -2,8 +2,24 @@
   <h3>There is a lot to do, you better get started!</h3>
   <ul>
     <li *ngFor="let item of list">
-      You have to complete: {{item.title}} <br>
-      Untill: {{item.date | date:'medium'}} <br>
+      You have to complete:
+      <span>{{item.title}}</span>
+      <i (click)="editItem(item)">x</i>
+      <br> Untill:
+      <span>{{item.date | date:'medium'}}</span>
+      <br>
+      <form *ngIf="itemToEdit?.uid == item.uid" (ngSubmit)="updateItem(item)" [formGroup]="form" novalidate>
+        <input type="text" formControlName="title" />
+        <br>
+        <input type="datetime-local" formControlName="date" />
+        <br>
+        <button type="submit">Update</button>
+        <button (click)="cancelEdit()">Cancel</button>
+      </form>
+      <!-- <input type="checkbox" [(ngModel)]="item.done" />
+      <div *ngIf="item.done">
+        donzo!
+      </div> -->
     </li>
   </ul>
 </div>
