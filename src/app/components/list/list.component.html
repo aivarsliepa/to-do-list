@@ -8,18 +8,21 @@
       <br> Untill:
       <span>{{item.date | date:'medium'}}</span>
       <br>
-      <form *ngIf="itemToEdit?.uid == item.uid" (ngSubmit)="updateItem(item)" [formGroup]="form" novalidate>
+      <label (click)="toggleDone(item)">
+        DONE!
+      </label>
+      <form *ngIf="itemToEdit?.uid == item.uid" [formGroup]="form" novalidate>
         <input type="text" formControlName="title" />
         <br>
         <input type="datetime-local" formControlName="date" />
         <br>
-        <button type="submit">Update</button>
+        <button (click)="updateCurrentItem()">Update</button>
         <button (click)="cancelEdit()">Cancel</button>
+        <button (click)="deleteItem()">Delete</button>
       </form>
-      <!-- <input type="checkbox" [(ngModel)]="item.done" />
       <div *ngIf="item.done">
         donzo!
-      </div> -->
+      </div>
     </li>
   </ul>
 </div>

@@ -14,7 +14,7 @@ export class ListService {
   constructor(private auth: AuthService, private afs: AngularFirestore) {
     this.auth.getUser().subscribe(user => {
       if (user) {
-        this.listCollection = this.afs.doc(`users/${user.uid}`).collection('list');
+        this.listCollection = this.afs.doc(`users/${user.uid}`).collection('list', ref => ref.orderBy('date', 'asc'));
         this.fetchList();
       }
     });

@@ -23,13 +23,18 @@ export const authServiceMock = {
 
 export const authStateSubject = new BehaviorSubject(null);
 export const mockNgFireAuth = {
-    authState: authStateSubject
+    authState: authStateSubject,
+    auth: {
+        signOut: () => { },
+        signInWithPopup: () => { }
+    }
 };
 
 export const getListSubject = new BehaviorSubject<ListItem[]>(null);
 export const listServiceMock = {
     getList: () => getListSubject,
-    updateItem: (item: ListItem) => { }
+    updateItem: (item: ListItem) => { },
+    deleteItem: (item: ListItem) => { }
 };
 
 export const mockListItem1: ListItem = {
@@ -58,7 +63,7 @@ export const mockDocChangeAction1 = {
                 return {
                     date: mockDate1,
                     done: false,
-                    title: 'list one'
+                    title: LIST_1_TITLE
                 };
             },
             id: LIST_1_UID
@@ -73,7 +78,7 @@ export const mockDocChangeAction2 = {
                 return {
                     date: null,
                     done: true,
-                    title: 'list two'
+                    title: LIST_2_TITLE
                 };
             },
             id: LIST_2_UID

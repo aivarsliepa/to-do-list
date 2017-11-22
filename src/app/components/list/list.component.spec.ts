@@ -31,19 +31,38 @@ describe('ListComponent', () => {
   let fixture: ComponentFixture<ListComponent>;
   let de: DebugElement;
 
-  let form: FormGroup;
   let titleInput: AbstractControl;
   let dateInput: AbstractControl;
   let submitBtn: HTMLButtonElement;
   let cancelBtn: HTMLButtonElement;
+  let deleteBtn: HTMLButtonElement;
 
   const intiallizeFormElements = () => {
-    form = component.form;
-    dateInput = form.controls['date'];
-    titleInput = form.controls['title'];
-    submitBtn = fixture.debugElement.query(By.css('button[type="submit"]')).nativeElement;
-    cancelBtn = fixture.debugElement.queryAll(By.css('button'))[1].nativeElement;
+    dateInput = component.form.controls['date'];
+    titleInput = component.form.controls['title'];
+    const buttons: DebugElement[] = de.queryAll(By.css('button'));
+    submitBtn = buttons[0].nativeElement;
+    cancelBtn = buttons[1].nativeElement;
+    deleteBtn = buttons[2].nativeElement;
   };
+
+  const resetFormElemets = () => {
+    dateInput = undefined;
+    titleInput = undefined;
+    submitBtn = undefined;
+    cancelBtn = undefined;
+    deleteBtn = undefined;
+  };
+
+  const setUpFirstListItemToBeEdited = () => {
+    getListSubject.next([mockListItem1]);
+    fixture.detectChanges();
+    const editIcon: HTMLElement = de.query(By.css('i')).nativeElement;
+    editIcon.click();
+    fixture.detectChanges();
+    intiallizeFormElements();
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ListComponent],
@@ -59,9 +78,13 @@ describe('ListComponent', () => {
   }));
 
   beforeEach(() => {
+    // reset values
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
+    mockListItem1.title = LIST_1_TITLE;
+    mockListItem1.done = false;
+    resetFormElemets();
   });
 
   it('should create', () => {
@@ -78,9 +101,9 @@ describe('ListComponent', () => {
   it('should have same in the list as the ones service gives it to', () => {
     getListSubject.next([mockListItem1]);
     fixture.detectChanges();
-    expect(component.list.length).toBe(1);
-    expect(component.list[0]).toBe(mockListItem1);
-    expect(component.list[0].uid).toBe(LIST_1_UID);
+    expect(component.list.length).toBe(1, 'list length');
+    expect(component.list[0]).toBe(mockListItem1, 'item itself');
+    expect(component.list[0].uid).toBe(LIST_1_UID, 'item uid');
   });
 
   it('should display correct list item', () => {
@@ -89,10 +112,10 @@ describe('ListComponent', () => {
     const spans: DebugElement[] = de.queryAll(By.css('span'));
     const titleSpan: HTMLSpanElement = spans[0].nativeElement;
     const dateSpan: HTMLSpanElement = spans[1].nativeElement;
-    expect(titleSpan.textContent.trim()).toBe(LIST_1_TITLE);
+    expect(titleSpan.textContent.trim()).toBe(LIST_1_TITLE, 'title value');
     // convert dates, to avoid locale issues
     const resultDate = new Date(dateSpan.textContent.trim());
-    expect(resultDate.toDateString()).toBe(mockDate1.toDateString());
+    expect(resultDate.toDateString()).toBe(mockDate1.toDateString(), 'date value');
   });
 
   it('item to edit should be intially undefined', () => {
@@ -102,65 +125,41 @@ describe('ListComponent', () => {
   });
 
   it('clicking edit button should set correct item to edit', () => {
-    getListSubject.next([mockListItem1]);
-    fixture.detectChanges();
-    const editIcon: HTMLElement = de.query(By.css('i')).nativeElement;
-    editIcon.click();
-    fixture.detectChanges();
+    setUpFirstListItemToBeEdited();
     expect(component.itemToEdit).toBe(mockListItem1);
   });
 
   it('form should not be present initially', () => {
     getListSubject.next([mockListItem1]);
     fixture.detectChanges();
-    expect(form).toBeUndefined();
+    expect(component.form).toBeUndefined();
   });
 
   it('form should initialize when edit clicked', () => {
-    getListSubject.next([mockListItem1]);
-    fixture.detectChanges();
-    const editIcon: HTMLElement = de.query(By.css('i')).nativeElement;
-    editIcon.click();
-    fixture.detectChanges();
-    intiallizeFormElements();
-    expect(form).toBeDefined();
+    setUpFirstListItemToBeEdited();
+    expect(component.form).toBeDefined();
   });
 
   it('form should pre-fill correct values of list item, including formatted date', () => {
-    getListSubject.next([mockListItem1]);
-    fixture.detectChanges();
-    const editIcon: HTMLElement = de.query(By.css('i')).nativeElement;
-    editIcon.click();
-    fixture.detectChanges();
-    intiallizeFormElements();
+    setUpFirstListItemToBeEdited();
     const formattedDate = moment(mockDate1).format('YYYY-MM-DDThh:mm');
-    expect(dateInput.value).toBe(formattedDate);
-    expect(titleInput.value).toBe(LIST_1_TITLE);
+    expect(dateInput.value).toBe(formattedDate, 'formatted date value');
+    expect(titleInput.value).toBe(LIST_1_TITLE, 'title value');
   });
 
   it('should allow to edit element via form when clicked', () => {
-    getListSubject.next([mockListItem1]);
-    fixture.detectChanges();
-    const editIcon: HTMLElement = de.query(By.css('i')).nativeElement;
-    editIcon.click();
-    fixture.detectChanges();
-    intiallizeFormElements();
+    setUpFirstListItemToBeEdited();
     titleInput.setValue(NEW_TITLE);
     dateInput.setValue(newDate);
     fixture.detectChanges();
-    expect(dateInput.value).toBe(newDate);
-    expect(titleInput.value).toBe(NEW_TITLE);
+    expect(dateInput.value).toBe(newDate, 'new date value');
+    expect(titleInput.value).toBe(NEW_TITLE, 'new title value');
   });
 
   it('update item after item form is submitted', () => {
     const listService = TestBed.get(ListService);
     spyOn(listService, 'updateItem');
-    getListSubject.next([mockListItem1]);
-    fixture.detectChanges();
-    const editIcon: HTMLElement = de.query(By.css('i')).nativeElement;
-    editIcon.click();
-    fixture.detectChanges();
-    intiallizeFormElements();
+    setUpFirstListItemToBeEdited();
     titleInput.setValue(NEW_TITLE);
     dateInput.setValue(newDate);
     fixture.detectChanges();
@@ -170,26 +169,15 @@ describe('ListComponent', () => {
   });
 
   it('cancel button should close the form', () => {
-    getListSubject.next([mockListItem1]);
-    fixture.detectChanges();
-    const editIcon: HTMLElement = de.query(By.css('i')).nativeElement;
-    editIcon.click();
-    fixture.detectChanges();
-    intiallizeFormElements();
+    setUpFirstListItemToBeEdited();
     cancelBtn.click();
     fixture.detectChanges();
     expect(component.form).toBeNull();
   });
 
   it('submitting form should close the form', () => {
-    getListSubject.next([mockListItem1]);
-    fixture.detectChanges();
-    const editIcon: HTMLElement = de.query(By.css('i')).nativeElement;
-    editIcon.click();
-    fixture.detectChanges();
-    intiallizeFormElements();
+    setUpFirstListItemToBeEdited();
     submitBtn.click();
-    fixture.detectChanges();
     expect(component.form).toBeNull();
   });
 
@@ -203,14 +191,55 @@ describe('ListComponent', () => {
     editIcon1.click();
     fixture.detectChanges();
     intiallizeFormElements();
-    // confirm first item form
-    expect(component.itemToEdit).toBe(mockListItem1);
+    expect(component.itemToEdit).toBe(mockListItem1, 'first item form');
 
     editIcon2.click();
     fixture.detectChanges();
     intiallizeFormElements();
-    // confirm second item form
-    expect(component.itemToEdit).toBe(mockListItem2);
+    expect(component.itemToEdit).toBe(mockListItem2, 'second item form');
+  });
+
+  it('clicking delete item, should delete currently selected item', () => {
+    const listService = TestBed.get(ListService);
+    spyOn(listService, 'deleteItem');
+    setUpFirstListItemToBeEdited();
+    deleteBtn.click();
+    fixture.detectChanges();
+    expect(listService.deleteItem).toHaveBeenCalledWith(mockListItem1);
+  });
+
+  it('deleting item should close the form', () => {
+    setUpFirstListItemToBeEdited();
+    expect(component.form).toBeDefined('setup failed');
+    deleteBtn.click();
+    expect(component.form).toBeNull();
+  });
+
+  it('deleting item should set itemToEdit to null', () => {
+    setUpFirstListItemToBeEdited();
+    expect(component.itemToEdit).toBe(mockListItem1, 'setup failed');
+    deleteBtn.click();
+    expect(component.itemToEdit).toBeNull();
+  });
+
+  it('clicking done should toggle item to "done" attribute', () => {
+    getListSubject.next([mockListItem1]);
+    fixture.detectChanges();
+    const checkboxLabel = de.query(By.css('label')).nativeElement;
+    expect(mockListItem1.done).toBeFalsy('setup failed');
+    checkboxLabel.click();
+    expect(mockListItem1.done).toBeTruthy('first click');
+    checkboxLabel.click();
+    expect(mockListItem1.done).toBeFalsy('second click');
+  });
+  it('clicking done should update clicked item to service', () => {
+    getListSubject.next([mockListItem1]);
+    fixture.detectChanges();
+    const checkboxLabel = de.query(By.css('label')).nativeElement;
+    const listService = TestBed.get(ListService);
+    spyOn(listService, 'updateItem');
+    checkboxLabel.click();
+    expect(listService.updateItem).toHaveBeenCalledWith(mockListItem1);
   });
 
 });

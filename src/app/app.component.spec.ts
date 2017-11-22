@@ -3,7 +3,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { ListComponent } from './components/list/list.component';
 import { AuthService } from './services/auth.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ItemFormComponent } from './components/item-form/item-form.component';
 
 
@@ -11,6 +11,7 @@ describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
+                FormsModule,
                 ReactiveFormsModule
             ],
             declarations: [

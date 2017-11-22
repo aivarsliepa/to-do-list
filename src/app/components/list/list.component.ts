@@ -22,7 +22,6 @@ export class ListComponent implements OnInit {
     this.listService.getList().subscribe(list => {
       this.list = list;
     });
-    // this.form = new FormGroup(null);
   }
 
   editItem(item: ListItem) {
@@ -35,9 +34,23 @@ export class ListComponent implements OnInit {
   }
 
   updateItem(item: ListItem) {
-    item.date = this.form.controls['date'].value;
-    item.title = this.form.controls['title'].value;
     this.listService.updateItem(item);
+  }
+
+  updateCurrentItem() {
+    this.itemToEdit.date = this.form.controls['date'].value;
+    this.itemToEdit.title = this.form.controls['title'].value;
+    this.updateItem(this.itemToEdit);
+    this.cancelEdit();
+  }
+
+  toggleDone(item: ListItem) {
+    item.done = !item.done;
+    this.updateItem(item);
+  }
+
+  deleteItem() {
+    this.listService.deleteItem(this.itemToEdit);
     this.cancelEdit();
   }
 
