@@ -6,7 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { DebugElement } from '@angular/core/src/debug/debug_node';
 
 describe('LoginComponent', () => {
-  const SIGN_IN_TEXT = 'Sign in with google';
+  const SIGN_IN_TEXT = 'Sign in';
   const LOGOUT_TEXT = 'Logout';
   const HELLO_TEXT = `Hello ${USER_NAME}!`;
   let component: LoginComponent;
@@ -39,7 +39,7 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
     const button: HTMLButtonElement = de.query(By.css('button')).nativeElement;
 
-    expect(button.textContent).toBe(SIGN_IN_TEXT);
+    expect(button.textContent).toContain(SIGN_IN_TEXT);
   });
 
   it('should show logout button, when user is logged in', () => {
@@ -93,7 +93,7 @@ describe('LoginComponent', () => {
 
     // confirm logged in state
     button = de.query(By.css('button')).nativeElement;
-    expect(button.textContent).toBe(SIGN_IN_TEXT);
+    expect(button.textContent).toContain(SIGN_IN_TEXT);
   });
 
   it('should change states from logged in to logged out, when logout button pressed', () => {
@@ -102,7 +102,7 @@ describe('LoginComponent', () => {
 
     // confirm logged in state
     let button: HTMLButtonElement = de.query(By.css('button')).nativeElement;
-    expect(button.textContent).toBe(SIGN_IN_TEXT);
+    expect(button.textContent).toContain(SIGN_IN_TEXT);
 
     button.click();
     fixture.detectChanges();

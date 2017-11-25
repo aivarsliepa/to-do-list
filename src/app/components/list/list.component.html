@@ -1,28 +1,33 @@
-<div *ngIf="list">
-  <h3>There is a lot to do, you better get started!</h3>
-  <ul>
-    <li *ngFor="let item of list">
-      You have to complete:
-      <span>{{item.title}}</span>
-      <i (click)="editItem(item)">x</i>
-      <br> Untill:
-      <span>{{item.date | date:'medium'}}</span>
-      <br>
-      <label (click)="toggleDone(item)">
-        DONE!
-      </label>
-      <form *ngIf="itemToEdit?.uid == item.uid" [formGroup]="form" novalidate>
-        <input type="text" formControlName="title" />
-        <br>
-        <input type="datetime-local" formControlName="date" />
-        <br>
-        <button (click)="updateCurrentItem()">Update</button>
-        <button (click)="cancelEdit()">Cancel</button>
-        <button (click)="deleteItem()">Delete</button>
-      </form>
-      <div *ngIf="item.done">
-        donzo!
+<div *ngIf="list?.length > 0">
+  <h3 class="text-info text-center">There is a lot to do, you better get started!</h3>
+  <ul class="list-group">
+    <li *ngFor="let item of list" class="list-group-item" [style.background-color]="getBg(item)">
+      <i [ngClass]="getIconClass(item)" (click)="toggleEditState(item)" aria-hidden="true"></i>
+      <div class="row item-row">
+        <div class="col-xs-1">
+          <label (click)="toggleDone(item)">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </label>
+        </div>
+        <div class="col-xs-11">You have {{ item.done == true ? 'completed' : 'to complete' }}:
+          <span class="text-info font-bold">{{item.title}}</span>
+          <br> Untill:
+          <span class="text-info font-bold">{{item.date | date:'medium'}}</span>
+          <br>
+        </div>
       </div>
+
+      <form *ngIf="itemToEdit?.uid == item.uid" [formGroup]="form" novalidate class="form-group">
+        <input class="form-control" type="text" formControlName="title" />
+        <br>
+        <input class="form-control" type="datetime-local" formControlName="date" />
+        <br>
+        <div class="btn-group">
+          <button class="btn btn-primary" (click)="updateCurrentItem()">Update</button>
+          <button class="btn btn-primary" (click)="cancelEdit()">Cancel</button>
+          <button class="btn btn-primary" (click)="deleteItem()">Delete</button>
+        </div>
+      </form>
     </li>
   </ul>
 </div>

@@ -1,0 +1,10 @@
+i:hover {
+    cursor: pointer;
+}
+span {
+    font-weight: bold;
+}
+.item-row {
+    display: flex;
+    align-items: center;
+} 

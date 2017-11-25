@@ -1,7 +1,7 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
-  <input type="text" formControlName="title" />
+<form class="form-group row" (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
+  <input class="form-control" type="text" formControlName="title" placeholder="What you need to do?" />
   <br>
-  <input type="datetime-local" formControlName="date" />
-  <br>
-  <button type="submit">Add new item to list</button>
+  <input class="form-control" type="datetime-local" formControlName="date" />
+  <button class="btn btn-primary center-block" type="submit">Add new item to list
+  </button>
 </form>

@@ -1,9 +1,11 @@
 <div *ngIf="user | async; let user; else showLogin">
-  <h2>Hello {{ user.displayName }}!</h2>
-  <button (click)="logout()">Logout</button>
+  <h2 class="text-center text-primary">Hello {{ user.displayName }}!</h2>
+  <button class="btn btn-danger center-block" (click)="logout()">Logout</button>
 </div>
 
 <ng-template #showLogin>
-  <p>Please login.</p>
-  <button (click)='googleLogin()'>Sign in with google</button>
+  <h2 class="text-info text-center">Please login.</h2>
+  <button class="btn btn-info center-block" (click)="googleLogin()">Sign in with
+    <i class="fa fa-google" aria-hidden="true"></i>oogle
+  </button>
 </ng-template>

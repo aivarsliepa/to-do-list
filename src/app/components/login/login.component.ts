@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class LoginComponent implements OnInit {
 
-  private user: BehaviorSubject<User>;
+  user: BehaviorSubject<User>;
   constructor(private authService: AuthService) { }
 
   ngOnInit() {

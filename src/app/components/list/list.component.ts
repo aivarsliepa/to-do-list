@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { Observable } from 'rxjs/Observable';
-import { ListItem } from '../../interfaces/main';
 import { FormGroup, FormControl } from '@angular/forms';
 import * as moment from 'moment';
+import {
+  ListItem,
+  TIME_FORMAT,
+  COLOR_DONE,
+  COLOR_MISSED,
+  COLOR_NORMAL,
+  ICON_CLOSE,
+  ICON_EDIT
+} from '../../interfaces/main';
 
 
 @Component({
@@ -21,15 +29,6 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.listService.getList().subscribe(list => {
       this.list = list;
-    });
-  }
-
-  editItem(item: ListItem) {
-    this.itemToEdit = item;
-    const date = moment(item.date).format('YYYY-MM-DDThh:mm');
-    this.form = new FormGroup({
-      title: new FormControl(item.title),
-      date: new FormControl(date)
     });
   }
 
@@ -58,4 +57,36 @@ export class ListComponent implements OnInit {
     this.itemToEdit = null;
     this.form = null;
   }
+
+  toggleEditState(item: ListItem) {
+    if (this.itemToEdit === item) {
+      this.itemToEdit = null;
+    } else {
+      this.itemToEdit = item;
+      const date = moment(item.date).format(TIME_FORMAT);
+      this.form = new FormGroup({
+        title: new FormControl(item.title),
+        date: new FormControl(date)
+      });
+    }
+  }
+
+  getBg(item: ListItem) {
+    if (item.done) {
+      return COLOR_DONE;
+    } else if (new Date(item.date) < new Date()) {
+      return COLOR_MISSED;
+    } else {
+      return COLOR_NORMAL;
+    }
+  }
+
+  getIconClass(item: ListItem) {
+    if (this.itemToEdit === item) {
+      return ICON_CLOSE;
+    } else {
+      return ICON_EDIT;
+    }
+  }
+
 }

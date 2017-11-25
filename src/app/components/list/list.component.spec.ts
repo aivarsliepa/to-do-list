@@ -5,7 +5,15 @@ import { By } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { DebugElement } from '@angular/core/src/debug/debug_node';
 import { FormGroup, AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ListItem } from '../../interfaces/main';
+import {
+  ListItem,
+  TIME_FORMAT,
+  ICON_CLOSE,
+  ICON_EDIT,
+  COLOR_NORMAL,
+  COLOR_MISSED,
+  COLOR_DONE
+} from '../../interfaces/main';
 import {
   listServiceMock,
   mockListItem1,
@@ -18,6 +26,7 @@ import {
 } from '../../testing/mocks';
 
 describe('ListComponent', () => {
+  const EDIT_ICON_CLASS = '.fa-pencil';
   const newDate = new Date();
   const NEW_TITLE = 'new title';
   const updatedItem: ListItem = {
@@ -142,7 +151,7 @@ describe('ListComponent', () => {
 
   it('form should pre-fill correct values of list item, including formatted date', () => {
     setUpFirstListItemToBeEdited();
-    const formattedDate = moment(mockDate1).format('YYYY-MM-DDThh:mm');
+    const formattedDate = moment(mockDate1).format(TIME_FORMAT);
     expect(dateInput.value).toBe(formattedDate, 'formatted date value');
     expect(titleInput.value).toBe(LIST_1_TITLE, 'title value');
   });
@@ -181,21 +190,41 @@ describe('ListComponent', () => {
     expect(component.form).toBeNull();
   });
 
+  it('toggleEditState() should toggle itemToEdit with passed argument', () => {
+    component.toggleEditState(mockListItem1);
+    expect(component.itemToEdit).toBe(mockListItem1, 'first call');
+    component.toggleEditState(mockListItem1);
+    expect(component.itemToEdit).toBeFalsy('second call');
+  });
+
+  it('edit icon should toggle edit state of item', () => {
+    getListSubject.next([mockListItem1]);
+    fixture.detectChanges();
+    const editIcon: HTMLElement = de.query(By.css('i')).nativeElement;
+
+    editIcon.click();
+    fixture.detectChanges();
+    expect(component.itemToEdit).toBe(mockListItem1, 'clicked first time');
+
+    editIcon.click();
+    fixture.detectChanges();
+    expect(component.itemToEdit).toBeFalsy('second click');
+  });
+
   it('clicking on different item\'s edit button, should swap form to that item', () => {
     getListSubject.next([mockListItem1, mockListItem2]);
     fixture.detectChanges();
-    const editIcons: DebugElement[] = de.queryAll(By.css('i'));
+
+    const editIcons: DebugElement[] = de.queryAll(By.css(EDIT_ICON_CLASS));
     const editIcon1: HTMLElement = editIcons[0].nativeElement;
     const editIcon2: HTMLElement = editIcons[1].nativeElement;
 
     editIcon1.click();
     fixture.detectChanges();
-    intiallizeFormElements();
     expect(component.itemToEdit).toBe(mockListItem1, 'first item form');
 
     editIcon2.click();
     fixture.detectChanges();
-    intiallizeFormElements();
     expect(component.itemToEdit).toBe(mockListItem2, 'second item form');
   });
 
@@ -232,6 +261,7 @@ describe('ListComponent', () => {
     checkboxLabel.click();
     expect(mockListItem1.done).toBeFalsy('second click');
   });
+
   it('clicking done should update clicked item to service', () => {
     getListSubject.next([mockListItem1]);
     fixture.detectChanges();
@@ -240,6 +270,41 @@ describe('ListComponent', () => {
     spyOn(listService, 'updateItem');
     checkboxLabel.click();
     expect(listService.updateItem).toHaveBeenCalledWith(mockListItem1);
+  });
+
+  it('getBg() should return COLOR_DONE, when item.done is true, even if item.date is passed', () => {
+    mockListItem1.done = true;
+    mockListItem1.date = new Date(DATE_TIME);
+    const result = component.getBg(mockListItem1);
+    expect(result).toBe(COLOR_DONE);
+  });
+
+  it('getBg() should return COLOR_MISSED, when item.done is false and item.date has passed', () => {
+    mockListItem1.done = false;
+    mockListItem1.date = new Date(DATE_TIME);
+    const result = component.getBg(mockListItem1);
+    expect(result).toBe(COLOR_MISSED);
+  });
+
+  it('getBg() should return COLOR_NORMAL, when item.done is false and item.date has not passed', () => {
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+    mockListItem1.date = date;
+    mockListItem1.done = false;
+    const result = component.getBg(mockListItem1);
+    expect(result).toBe(COLOR_NORMAL);
+  });
+
+  it('getIconClass() sould return ICON_EDIT, when item is not being edited', () => {
+    component.itemToEdit = null;
+    const result = component.getIconClass(mockListItem1);
+    expect(result).toBe(ICON_EDIT);
+  });
+
+  it('getIconClass() sould return ICON_CLOSE, when item is being edited', () => {
+    component.itemToEdit = mockListItem1;
+    const result = component.getIconClass(mockListItem1);
+    expect(result).toBe(ICON_CLOSE);
   });
 
 });
