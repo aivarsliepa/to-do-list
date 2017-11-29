@@ -71,24 +71,7 @@ export const mockDocChangeAction1 = {
     }
 };
 
-export const mockDocChangeAction2 = {
-    payload: {
-        doc: {
-            data: () => {
-                return {
-                    date: null,
-                    done: true,
-                    title: LIST_2_TITLE
-                };
-            },
-            id: LIST_2_UID
-        }
-    }
-};
-
 export const mockDocumentChangeActions = [];
-
-// mockDucumentChangeActions
 export const mockListSubject = new BehaviorSubject(mockDocumentChangeActions);
 
 export const mockListCollection = {
@@ -115,6 +98,21 @@ export const mockFireStore = {
     doc: (docPath: string) => {
         if (docPath === `users/${USER_UID}`) {
             return mockUserDoc;
+        }
+    }
+};
+
+export const mockDocChangeAction2 = {
+    payload: {
+        doc: {
+            data: () => {
+                return {
+                    date: null,
+                    done: true,
+                    title: LIST_2_TITLE
+                };
+            },
+            id: LIST_2_UID
         }
     }
 };

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ListItem } from '../interfaces/main';
 
@@ -14,7 +13,8 @@ export class ListService {
   constructor(private auth: AuthService, private afs: AngularFirestore) {
     this.auth.getUser().subscribe(user => {
       if (user) {
-        this.listCollection = this.afs.doc(`users/${user.uid}`).collection('list', ref => ref.orderBy('date', 'asc'));
+        this.listCollection = this.afs.doc(`users/${user.uid}`)
+          .collection('list', ref => ref.orderBy('date', 'asc'));
         this.fetchList();
       }
     });
@@ -29,6 +29,7 @@ export class ListService {
       });
     }).subscribe(list => this.list.next(list));
   }
+
   getList(): BehaviorSubject<ListItem[]> {
     return this.list;
   }

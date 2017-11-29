@@ -35,7 +35,7 @@ describe('mockUserDoc', () => {
 });
 
 describe('mockListCollection', () => {
-    it('snapshoChanges() should return mockListSubject', () => {
+    it('snapshotChanges() should return mockListSubject', () => {
         expect(mockListCollection.snapshotChanges()).toBe(mockListSubject);
     });
     it('doc() should return mockListItem1Doc, when listItem1 uid passed as an arg', () => {
