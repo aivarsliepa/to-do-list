@@ -34,7 +34,7 @@ describe('AuthService', () => {
     expect(result.uid).toBe(USER_UID);
   }));
 
-  it('set user as null, when authState is null', inject([AuthService], (service: AuthService) => {
+  it('should set user as null, when authState is null', inject([AuthService], (service: AuthService) => {
     authStateSubject.next(null);
     let result = {};
     service.getUser().subscribe(user => {
