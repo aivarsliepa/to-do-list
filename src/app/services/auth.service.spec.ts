@@ -43,17 +43,19 @@ describe('AuthService', () => {
     expect(result).toBeNull();
   }));
 
-  it('googleLogin() should call signInWithPopup from AngularFireAuth service', inject([AuthService], (service: AuthService) => {
-    const ngFireAuth = TestBed.get(AngularFireAuth);
-    spyOn(ngFireAuth.auth, 'signInWithPopup');
-    service.googleLogin();
-    expect(ngFireAuth.auth.signInWithPopup).toHaveBeenCalled();
-  }));
+  it('googleLogin() should call signInWithPopup from AngularFireAuth service',
+    inject([AuthService], (service: AuthService) => {
+      const ngFireAuth = TestBed.get(AngularFireAuth);
+      spyOn(ngFireAuth.auth, 'signInWithPopup');
+      service.googleLogin();
+      expect(ngFireAuth.auth.signInWithPopup).toHaveBeenCalled();
+    }));
 
-  it('logout() should call signOut from AngularFireAuth service', inject([AuthService], (service: AuthService) => {
-    const ngFireAuth = TestBed.get(AngularFireAuth);
-    spyOn(ngFireAuth.auth, 'signOut');
-    service.logout();
-    expect(ngFireAuth.auth.signOut).toHaveBeenCalled();
-  }));
+  it('logout() should call signOut from AngularFireAuth service',
+    inject([AuthService], (service: AuthService) => {
+      const ngFireAuth = TestBed.get(AngularFireAuth);
+      spyOn(ngFireAuth.auth, 'signOut');
+      service.logout();
+      expect(ngFireAuth.auth.signOut).toHaveBeenCalled();
+    }));
 });
