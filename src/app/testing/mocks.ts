@@ -37,18 +37,18 @@ export const listServiceMock = {
     deleteItem: (item: ListItem) => { }
 };
 
-export const mockListItem1: ListItem = {
-    date: mockDate1,
-    done: false,
-    title: LIST_1_TITLE,
-    uid: LIST_1_UID
-};
-
 export const mockListItem2: ListItem = {
     date: null,
     done: false,
     title: LIST_2_TITLE,
     uid: LIST_2_UID
+};
+
+export const mockListItem1: ListItem = {
+    date: mockDate1,
+    done: false,
+    title: LIST_1_TITLE,
+    uid: LIST_1_UID
 };
 
 export const mockListItem1Doc = {
