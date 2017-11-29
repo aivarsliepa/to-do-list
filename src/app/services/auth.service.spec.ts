@@ -29,7 +29,7 @@ describe('AuthService', () => {
     let result: User;
     service.getUser().subscribe(user => {
       result = user;
-    }).unsubscribe();
+    });
     expect(result.displayName).toBe(USER_NAME);
     expect(result.uid).toBe(USER_UID);
   }));
@@ -39,7 +39,7 @@ describe('AuthService', () => {
     let result = {};
     service.getUser().subscribe(user => {
       result = user;
-    }).unsubscribe();
+    });
     expect(result).toBeNull();
   }));
 

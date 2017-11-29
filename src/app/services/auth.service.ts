@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-
 import { User } from '../interfaces/main';
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
@@ -37,12 +32,4 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
-  // private initializeUser(user: firebase.User) {
-  //   const userDoc: AngularFirestoreDocument<User> = this.afs.doc<User>(`users/${user.uid}`);
-  //   const userData: User = {
-  //     uid: user.uid,
-  //     displayName: user.displayName
-  //   };
-  //   userDoc.set(userData);
-  // }
 }
