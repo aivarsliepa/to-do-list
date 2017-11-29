@@ -24,7 +24,7 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should set correct user', inject([AuthService], (service: AuthService) => {
+  it('should set the same user passed from angFireAuth', inject([AuthService], (service: AuthService) => {
     authStateSubject.next(mockUser);
     let result: User;
     service.getUser().subscribe(user => {
@@ -34,7 +34,7 @@ describe('AuthService', () => {
     expect(result.uid).toBe(USER_UID);
   }));
 
-  it('set user as null', inject([AuthService], (service: AuthService) => {
+  it('set user as null, when authState is null', inject([AuthService], (service: AuthService) => {
     authStateSubject.next(null);
     let result = {};
     service.getUser().subscribe(user => {
