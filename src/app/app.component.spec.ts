@@ -8,7 +8,6 @@ import { ItemFormComponent } from './components/item-form/item-form.component';
 import { authServiceMock, getUserSubject, mockUser, listServiceMock } from './testing/mocks';
 import { ListService } from './services/list.service';
 
-
 describe('AppComponent', () => {
     let fixture: ComponentFixture<AppComponent>;
     let app;

@@ -55,14 +55,6 @@ describe('ListComponent', () => {
     deleteBtn = buttons[2].nativeElement;
   };
 
-  const resetFormElemets = () => {
-    dateInput = undefined;
-    titleInput = undefined;
-    submitBtn = undefined;
-    cancelBtn = undefined;
-    deleteBtn = undefined;
-  };
-
   const setUpFirstListItemToBeEdited = () => {
     getListSubject.next([mockListItem1]);
     fixture.detectChanges();
@@ -82,18 +74,23 @@ describe('ListComponent', () => {
         ReactiveFormsModule,
         FormsModule
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    // reset values
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
+  });
+
+  afterEach(() => {
+    dateInput = undefined;
+    titleInput = undefined;
+    submitBtn = undefined;
+    cancelBtn = undefined;
+    deleteBtn = undefined;
     mockListItem1.title = LIST_1_TITLE;
     mockListItem1.done = false;
-    resetFormElemets();
   });
 
   it('should create', () => {
@@ -306,5 +303,4 @@ describe('ListComponent', () => {
     const result = component.getIconClass(mockListItem1);
     expect(result).toBe(ICON_CLOSE);
   });
-
 });

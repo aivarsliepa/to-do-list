@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { Observable } from 'rxjs/Observable';
 import { User } from './interfaces/main';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
@@ -10,6 +9,7 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
   user: User;
   constructor(private auth: AuthService) { }
 
@@ -18,5 +18,4 @@ export class AppComponent implements OnInit {
       this.user = user;
     });
   }
-
 }

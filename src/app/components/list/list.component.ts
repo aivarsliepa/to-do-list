@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
-import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import {
@@ -88,5 +87,4 @@ export class ListComponent implements OnInit {
       return ICON_EDIT;
     }
   }
-
 }

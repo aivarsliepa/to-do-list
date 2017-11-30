@@ -16,11 +16,8 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      providers: [
-        { provide: AuthService, useValue: authServiceMock }
-      ]
-    })
-      .compileComponents();
+      providers: [{ provide: AuthService, useValue: authServiceMock }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -38,7 +35,6 @@ describe('LoginComponent', () => {
     getUserSubject.next(null);
     fixture.detectChanges();
     const button: HTMLButtonElement = de.query(By.css('button')).nativeElement;
-
     expect(button.textContent).toContain(SIGN_IN_TEXT);
   });
 
@@ -46,7 +42,6 @@ describe('LoginComponent', () => {
     getUserSubject.next(mockUser);
     fixture.detectChanges();
     const button: HTMLButtonElement = de.query(By.css('button')).nativeElement;
-
     expect(button.textContent).toBe(LOGOUT_TEXT);
   });
 
@@ -54,7 +49,6 @@ describe('LoginComponent', () => {
     getUserSubject.next(mockUser);
     fixture.detectChanges();
     const heading: HTMLHeadingElement = de.query(By.css('h2')).nativeElement;
-
     expect(heading.innerText).toBe(HELLO_TEXT);
   });
 
@@ -63,9 +57,7 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
     const button: HTMLButtonElement = de.query(By.css('button')).nativeElement;
     spyOn(component, 'googleLogin');
-
     button.click();
-
     expect(component.googleLogin).toHaveBeenCalled();
   });
 
@@ -74,9 +66,7 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
     const button: HTMLButtonElement = de.query(By.css('button')).nativeElement;
     spyOn(component, 'logout');
-
     button.click();
-
     expect(component.logout).toHaveBeenCalled();
   });
 
@@ -84,33 +74,27 @@ describe('LoginComponent', () => {
     getUserSubject.next(mockUser);
     fixture.detectChanges();
 
-    // confirm logged out state
     let button: HTMLButtonElement = de.query(By.css('button')).nativeElement;
-    expect(button.textContent).toBe(LOGOUT_TEXT);
+    expect(button.textContent).toBe(LOGOUT_TEXT, 'confirm logged in state');
 
     button.click();
     fixture.detectChanges();
 
-    // confirm logged in state
     button = de.query(By.css('button')).nativeElement;
-    expect(button.textContent).toContain(SIGN_IN_TEXT);
+    expect(button.textContent).toContain(SIGN_IN_TEXT, 'confirm logged out state');
   });
 
   it('should change states from logged in to logged out, when logout button pressed', () => {
     getUserSubject.next(null);
     fixture.detectChanges();
 
-    // confirm logged in state
     let button: HTMLButtonElement = de.query(By.css('button')).nativeElement;
-    expect(button.textContent).toContain(SIGN_IN_TEXT);
+    expect(button.textContent).toContain(SIGN_IN_TEXT, 'confirm logged out state');
 
     button.click();
     fixture.detectChanges();
 
-    // confirm logged out state
     button = de.query(By.css('button')).nativeElement;
-    expect(button.textContent).toBe(LOGOUT_TEXT);
-
+    expect(button.textContent).toBe(LOGOUT_TEXT, 'confirm logged in state');
   });
-
 });
