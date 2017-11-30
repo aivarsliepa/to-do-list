@@ -34,8 +34,7 @@ describe('ItemFormComponent', () => {
       ],
       declarations: [ItemFormComponent],
       providers: [{ provide: ListService, useValue: listServiceMock }]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
